@@ -48,7 +48,6 @@ create database laravel_jobs
 Finally, run the initial migrations and seeders.
 ```
 php artisan migrate --seed
-
 ```
 
 ### File Uploading
