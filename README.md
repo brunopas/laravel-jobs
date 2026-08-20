@@ -1,86 +1,94 @@
-<h1 align="center">
-  <strong>LaraJobs</strong>
-</h1>
+# LaraJobs
 
-<p align="center">
- <a href="#about">About</a> |
- <a href="#usage">Usage</a> |
- <a href="#technologies">Technologies</a> |
- <a href="#license">License</a>
-</p>
+Job board for posting and browsing Laravel job listings with company logos. Study project from the [Laravel From Scratch 2022](https://www.youtube.com/watch?v=MYyJ4PuL4pY) course by Traversy Media.
 
----
+## Features
 
-## About
+- Browse job listings with tag filtering and keyword search
+- Create, edit, and delete your own listings
+- Upload a company logo for each listing
+- Register, log in, and manage your listings from a dashboard
+- Database seeder with sample listings and fictional companies
 
-An application to share Laravel jobs & projects. LaraJobs was developed using PHP Language and Laravel Framework.<br>
-This is a non-profit project. All prototypes, software code, design and illustrations are created for educational purposes only.<br>
-Project developed during <a href="https://www.youtube.com/watch?v=MYyJ4PuL4pY">"Laravel From Scratch 2022 | 4+ Hour Course"</a> course by <a href="https://www.traversymedia.com/">Traversy Media</a>.
+## Tech stack
 
-<img alt="LaraJobs" title="#LaraJobs" src="public/github/readme-1.png" />
+- **Runtime:** PHP 8, Laravel 9
+- **Views:** Blade components, Tailwind CSS (CDN), Alpine.js (CDN)
+- **Database:** MySQL via Eloquent
+- **Uploads:** Logo files stored in `storage/app/public`
+- **Dev tools:** Laravel Pint, Clockwork
 
----
+See [composer.json](./composer.json) and [package.json](./package.json) for full dependency lists.
 
-## Usage
+## Requirements
 
-Before you begin, you will need to have the following tools installed on your machine:
-<strong><a href="https://www.php.net/">PHP</a></strong>, <strong><a href="https://getcomposer.org/">Composer</a></strong>, <strong><a href="https://git-scm.com/">Git</a></strong>, and <strong><a href="https://nodejs.org/">Node</a></strong>.<br>
-In addition, it is good to have an editor to work with the code like <strong><a href="https://code.visualstudio.com/">VSCode</a></strong> or <strong><a href="https://www.jetbrains.com/phpstorm/">PHP Storm</a></strong>.
+- [PHP](https://www.php.net/) >= 8.0.2 with required extensions
+- [Composer](https://getcomposer.org/)
+- [Git](https://git-scm.com/)
+- [MySQL](https://www.mysql.com/) (or change the driver in `config/database.php`)
 
-### Installation
-First, clone this repository, install the dependencies, and setup your <code>.env</code> file.
+## Environment variables
+
+Copy `.env.example` to `.env` and fill in the values below.
+
+| Variable | Required | Default |
+| --- | --- | --- |
+| `DB_DATABASE` | Yes | `laravel_jobs` |
+| `DB_USERNAME` | Yes | `root` |
+| `DB_PASSWORD` | Yes | — |
+
+All other variables use sensible Laravel defaults for local development.
+
+## Getting started
+
 ```bash
-$ git clone https://github.com/brunopas/laravel-jobs.git
-$ cd laravel-jobs
+git clone https://github.com/brunopas/laravel-jobs.git
+cd laravel-jobs
 
-$ composer install
-$ cp .env.example .env
-```
-This app uses <strong><a href="https://www.mysql.com/">MySQL</a></strong>. To use something different, open up <code>config/Database.php</code> and change the default driver.<br>
-To use MySQL, make sure you install it, setup a database and then add your DB credentials (database, username and password) to the <code>.env</code> file.
-
-### Database Setup
-Then, create the necessary database.
-```bash
-$ php artisan db
-$ create database laravel_jobs
-```
-
-### Migrations
-Finally, run the initial migrations and seeders.
-```bash
-$ php artisan migrate --seed
+composer install
+cp .env.example .env
+php artisan key:generate
 ```
 
-### File Uploading
-When uploading files, they go to "storage/app/public". Create a symlink with the following command to make them publicly accessible.
+Create a MySQL database called `laravel_jobs` (or whatever you set in `DB_DATABASE`), then:
+
 ```bash
-$ php artisan storage:link
+php artisan migrate --seed
+php artisan storage:link
+php artisan serve
 ```
 
-### Running
-To serve the application on the PHP development server, run the following command:
-```bash
-$ php artisan serve
+Open [http://localhost:8000](http://localhost:8000).
+
+The seeder creates an admin user (`admin@larajobs.com` / `password`) and sample job listings with logos.
+
+## Scripts
+
+| Command | What it does |
+| --- | --- |
+| `php artisan serve` | Start the development server |
+| `php artisan migrate --seed` | Run migrations and seed the database |
+| `php artisan storage:link` | Symlink `storage/app/public` to `public/storage` |
+
+## Project structure
+
+```text
+laravel-jobs/
+├── app/
+│   ├── Http/Controllers/   # ListingController, UserController
+│   └── Models/              # User, Listing
+├── config/                  # Laravel config files
+├── database/
+│   ├── factories/           # Listing and User factories
+│   ├── migrations/          # Schema migrations
+│   └── seeders/             # DatabaseSeeder
+├── lang/en/                 # English validation and auth messages
+├── public/                  # Static assets, logos, favicon
+├── resources/views/         # Blade templates (listings, users, components)
+├── routes/                  # web.php
+└── tests/                   # PHPUnit tests
 ```
-
----
-
-## Technologies
-
-The following tools were used to build the project:
--   **[PHP](https://www.php.net/)** >= 8.0.2
--   **[Laravel Framework](https://laravel.com/)** >= 9.19
--   **[Redis](https://redis.io/)**
--   **[Tailwind CSS](https://tailwindcss.com/)**
--   **[MySQL](https://www.mysql.com/)**
-
-For more information, see the files [composer.json](./composer.json) and [package.json](./package.json).
-
----
 
 ## License
 
-This project is under the license [MIT](./LICENSE).
-
-Made with ❤️ love by Bruno Pasquarelli Macedo 👋🏻 [Get in Touch!](https://www.linkedin.com/in/brunopasmacedo)
+MIT. See [LICENSE](./LICENSE).
